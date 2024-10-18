@@ -1,8 +1,9 @@
 #importing functions
 from GUI import browse_files
 from vectorize import process_chunks
+from slide_keywords import read_pptx, llm_keywords, get_keyword_vectors
 
-#uploading textbook excerpt and slides
+#upload textbook excerpt and slides
 textbook, slides = browse_files()
 print("Textbook Path:", textbook)
 print("Slides Path:", slides)
@@ -21,3 +22,10 @@ for point in formatted_embeddings:
     print(f"Vector: {point['vector']}")
     print(f"Metadata (Text Chunk): {point['payload']['text']}")
     print("-" * 50)
+
+#get vectorized keywords from uploaded slides
+slide_text = read_pptx(slides) 
+keywords = llm_keywords(slide_text)
+print(keywords)
+keyword_vectors = get_keyword_vectors(keywords)
+print(len(keyword_vectors))
