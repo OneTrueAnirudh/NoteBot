@@ -133,17 +133,23 @@ class PDF_parser_chunker:
     def final_chunks(self):
         """Final chunking function, returns list of chunks that are within token limit."""
         for i in self.chunks.items():
-            if self.count_tokens(' '.join(i[1])) > self.token_limit:
+            joined_chunk = ' '.join(i[1]).strip()  
+            if not joined_chunk:  
+                continue
+            if self.count_tokens(joined_chunk) > self.token_limit:
                 temp = self.util_splitter(i[1])
                 for j in temp:
-                    self.final.append(j)
-                temp = []
+                    if j and ''.join(j).strip():  
+                        self.final.append(j)
             else:
                 self.final.append(i[1])
         return self.final
 
-    def Chunker(self):
+
+    def Chunker(self)->list[str]:
         p = PDF_parser_chunker(self.file_path)
         ch = p.process_pdf()
         fin = p.final_chunks()
+        for i in range(len(fin)):
+            fin[i] = ' '.join(fin[i])
         return fin

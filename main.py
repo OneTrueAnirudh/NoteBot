@@ -1,7 +1,6 @@
 #importing functions
 from GUI import browse_files
-# Importing the class from the file
-# from chunking import PDF_parser_chunker
+from chunking import PDF_parser_chunker
 from vectorize import process_chunks
 from slide_keywords import read_pptx, llm_keywords, get_keyword_vectors
 
@@ -10,15 +9,8 @@ textbook, slides = browse_files()
 print("Textbook Path:", textbook)
 print("Slides Path:", slides)
 
-#chunk the extracted text from the textbook excerpt
-chunks = [
-    "This is the first chunk of text.",
-    "Here is the second chunk of the text data.",
-    "This is the third chunk of text we are processing."
-]
-
-# Calling the function to chunk, stored as a list in chunks
-# chunks = PDF_parser_chunker(textbook).Chunker()
+# Calling the function to chunk the textbook, chunks are stored as strings in the list
+chunks = PDF_parser_chunker(textbook).Chunker()
 
 #get vector embeddings for chunks
 formatted_embeddings=process_chunks(chunks)
