@@ -153,3 +153,7 @@ class PDF_parser_chunker:
         for i in range(len(fin)):
             fin[i] = ' '.join(fin[i])
         return fin
+    
+# man = PDF_parser_chunker('phil_book.pdf').Chunker()
+# for i in man[0:5]:
+#     print(i)
